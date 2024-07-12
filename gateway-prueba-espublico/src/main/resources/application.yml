@@ -8,3 +8,12 @@ spring:
             - Path=/api/documentos/**
         filters:
             - StripPrefix=2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env,routes,gateway
+  endpoint:
+    health:
+      show-details: always
