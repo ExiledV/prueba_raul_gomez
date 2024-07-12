@@ -135,24 +135,24 @@ public class DocumentoServiceImpl implements DocumentoService {
         });
 
         //Loggeamos la informacion
-        logger.info("Regions saved");
+        logger.info("Regions saved:");
         logger.info(regionsSaved.toString());
 
-        logger.info("Countries saved");
+        logger.info("Countries saved:");
         logger.info(countriesSaved.toString());
 
-        logger.info("Item types saved");
+        logger.info("Item types saved:");
         logger.info(itemTypesSaved.toString());
 
-        logger.info("Sales channels saved");
+        logger.info("Sales channels saved:");
         logger.info(salesChannelsSaved.toString());
 
-        logger.info("Order priorities saved");
+        logger.info("Order priorities saved:");
         logger.info(ordersPrioSaved.toString());
     }
 
     private void accumDataInHashMap(HashMap<String, Long> hashMap, String key) {
-        if(hashMap.containsKey(key)){
+        if(!hashMap.containsKey(key)){
             hashMap.put(key, Long.valueOf(1));
         } else {
             hashMap.put(key, hashMap.get(key) + 1);
