@@ -1,0 +1,31 @@
+services:
+  app:
+    build:
+      context: ./documentos
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/documentosdb
+      SPRING_DATASOURCE_USERNAME: documentosuser
+      SPRING_DATASOURCE_PASSWORD: documentospassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update # or create, validate, etc. depending on your need
+    networks:
+      - app-network
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: documentosdb
+      POSTGRES_USER: documentosuser
+      POSTGRES_PASSWORD: documentospassword
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+networks:
+  app-network:
+    driver: bridge
