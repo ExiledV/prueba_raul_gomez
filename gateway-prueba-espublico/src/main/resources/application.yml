@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: documentos
+        uri: lb://documento
+        predicates:
+            - Path=/api/documentos/**
+        filters:
+            - StripPrefix=2

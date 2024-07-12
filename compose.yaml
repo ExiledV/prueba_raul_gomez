@@ -1,16 +1,38 @@
 services:
-  app:
+  documentos:
     build:
       context: ./documentos
     ports:
       - "8080:8080"
     depends_on:
       - db
+      - eureka-prueba-espublico
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/documentosdb
       SPRING_DATASOURCE_USERNAME: documentosuser
       SPRING_DATASOURCE_PASSWORD: documentospassword
       SPRING_JPA_HIBERNATE_DDL_AUTO: update # or create, validate, etc. depending on your need
+    networks:
+      - app-network
+
+  eureka-prueba-espublico:
+    container_name: eureka-prueba-espublico
+    build:
+      context: ./eureka-prueba-espublico
+    ports:
+      - "8761:8761"
+    networks:
+      - app-network
+
+  gateway-prueba-espublico:
+    container_name: gateway-prueba-espublico
+    build:
+      context: ./gateway-prueba-espublico
+    ports:
+      - "8090:8090"
+    depends_on:
+      - eureka-prueba-espublico
+      - documentos
     networks:
       - app-network
 

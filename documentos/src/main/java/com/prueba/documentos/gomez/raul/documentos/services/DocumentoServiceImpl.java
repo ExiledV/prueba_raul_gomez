@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -93,13 +94,21 @@ public class DocumentoServiceImpl implements DocumentoService {
             //Escribimos las cabeceras
             writer.writeNext(cabeceras);
 
+            
             //Guardamos todas una vez validadas y las ordenamos por orderId
             docEntities = docEntities.stream()
                 .sorted((e1, e2) -> e1.getOrderId().compareTo(e2.getOrderId()))
                 .collect(Collectors.toList());
 
+            
             this.documentoRepository.saveAll(docEntities);
+
+            //Escribimos el documento resumen ordenado por orderId
             writer.writeAll(docEntities.stream().map(e -> e.formatToCsv()).collect(Collectors.toList()));
+
+            //Hacemos el log de los datos guardados
+            this.logSavedCsvData(docEntities);
+
         } catch (IOException | CsvValidationException e) {
             throw new IOException("Error al leer o crear el fichero csv en la linea + " + linesReaded);
         } catch (IllegalArgumentException e) {
@@ -108,5 +117,46 @@ public class DocumentoServiceImpl implements DocumentoService {
 
     }
 
+    private void logSavedCsvData(List<DocumentoEntity> docEntities) {
+        HashMap <String, Long> regionsSaved = new HashMap<String, Long>();
+        HashMap <String, Long> countriesSaved = new HashMap<String, Long>();
+        HashMap <String, Long> itemTypesSaved = new HashMap<String, Long>();
+        HashMap <String, Long> salesChannelsSaved = new HashMap<String, Long>();
+        HashMap <String, Long> ordersPrioSaved = new HashMap<String, Long>();
+
+        docEntities.stream()
+        .forEach(e -> {
+            //Guardamos la informacion
+            this.accumDataInHashMap(regionsSaved, e.getRegion());
+            this.accumDataInHashMap(countriesSaved, e.getCountry());
+            this.accumDataInHashMap(itemTypesSaved, e.getItemType());
+            this.accumDataInHashMap(salesChannelsSaved, e.getSalesChannel());
+            this.accumDataInHashMap(ordersPrioSaved, e.getOrderPriority());
+        });
+
+        //Loggeamos la informacion
+        logger.info("Regions saved");
+        logger.info(regionsSaved.toString());
+
+        logger.info("Countries saved");
+        logger.info(countriesSaved.toString());
+
+        logger.info("Item types saved");
+        logger.info(itemTypesSaved.toString());
+
+        logger.info("Sales channels saved");
+        logger.info(salesChannelsSaved.toString());
+
+        logger.info("Order priorities saved");
+        logger.info(ordersPrioSaved.toString());
+    }
+
+    private void accumDataInHashMap(HashMap<String, Long> hashMap, String key) {
+        if(hashMap.containsKey(key)){
+            hashMap.put(key, Long.valueOf(1));
+        } else {
+            hashMap.put(key, hashMap.get(key) + 1);
+        }
+    }
     
 }

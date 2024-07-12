@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController()
-@RequestMapping(path = "documento")
+@RequestMapping(path = "documentos")
 public class DocumentoController {
 
     private final DocumentoService documentService;
