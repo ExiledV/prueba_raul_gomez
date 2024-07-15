@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "aafdf61e-3cb9-47f6-889c-c10d8cd0f8a8",
+		"name": "EsPublico prueba Raul Gómez Beteta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24928924"
+	},
+	"item": [
+		{
+			"name": "Monitoreo",
+			"item": [
+				{
+					"name": "get routes",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "findAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\": 1,\r\n    \"size\":30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8090/api/documentos/documentos/findAll",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"documentos",
+						"documentos",
+						"findAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ImportarPequeño",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/raul9/Desktop/Cositas/Proyectos/BackEnd/prueba_raul_gomez/documentos/src/test/java/testDocuments/RegistroVentas1.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8090/api/documentos/documentos/import",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"documentos",
+						"documentos",
+						"import"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Importar Grande",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/raul9/Desktop/Cositas/Proyectos/BackEnd/prueba_raul_gomez/documentos/src/test/java/testDocuments/RegistroVentas2.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8090/api/documentos/documentos/import",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"documentos",
+						"documentos",
+						"import"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
