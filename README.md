@@ -50,7 +50,6 @@ docker compose up --build
 Execute this command line, first in eureka server, second in gateway and third in documents microservice.
 
 ```bash
-cd gateway-prueba-espublico
 mvn spring-boot:run
 ```
 
