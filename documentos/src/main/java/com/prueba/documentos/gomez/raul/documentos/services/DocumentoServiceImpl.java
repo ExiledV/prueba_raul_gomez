@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;

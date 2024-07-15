@@ -37,6 +37,7 @@ public class DocumentoRepository {
                 documentoEntity.getCountry(),
                 documentoEntity.getItemType(),
                 documentoEntity.getSalesChannel(),
+                //Convertimos a sql.Date
                 new Date(documentoEntity.getShipDate().getTime()),
                 documentoEntity.getUnitsSold(),
                 documentoEntity.getUnitPrice(),
@@ -56,11 +57,13 @@ public class DocumentoRepository {
                 DocumentoEntity documentoEntity = documentosEntity.get(i);
                 ps.setLong(1, documentoEntity.getOrderId());
                 ps.setString(2, documentoEntity.getOrderPriority());
+                //Convertimos a sql.Date
                 ps.setDate(3, new Date(documentoEntity.getOrderDate().getTime()));
                 ps.setString(4, documentoEntity.getRegion());
                 ps.setString(5, documentoEntity.getCountry());
                 ps.setString(6, documentoEntity.getItemType());
                 ps.setString(7, documentoEntity.getSalesChannel());
+                //Convertimos a sql.Date
                 ps.setDate(8, new Date(documentoEntity.getShipDate().getTime()));
                 ps.setLong(9, documentoEntity.getUnitsSold());
                 ps.setDouble(10, documentoEntity.getUnitPrice());
